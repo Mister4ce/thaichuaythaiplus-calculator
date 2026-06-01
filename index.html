@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>เครื่องคำนวณไทยช่วยไทยพลัส</title>
 
 <style>
 
 body{
-    font-family: Arial, sans-serif;
+    font-family: Arial,sans-serif;
     background:#f4f6f9;
     margin:0;
     padding:20px;
@@ -30,11 +31,12 @@ body{
 
 .header h1{
     margin:0;
-    line-height:1.4;
+    line-height:1.5;
 }
 
 .header p{
-    margin-top:10px;
+    margin-top:12px;
+    font-size:18px;
 }
 
 input{
@@ -45,10 +47,11 @@ input{
     border:2px solid #ccc;
     border-radius:12px;
     margin-bottom:10px;
+    color:black;
 }
 
 .limit{
-    color:red;
+    color:gray;
     font-size:14px;
     margin-bottom:10px;
 }
@@ -86,15 +89,15 @@ input{
 
 .result-green{
     color:#2E7D32;
-    font-size:30px;
+    font-size:28px;
     font-weight:bold;
     text-align:center;
     margin-top:20px;
 }
 
 .result-red{
-    color:red;
-    font-size:30px;
+    color:#D32F2F;
+    font-size:28px;
     font-weight:bold;
     text-align:center;
     margin-top:20px;
@@ -112,6 +115,10 @@ button{
     cursor:pointer;
 }
 
+button:hover{
+    opacity:0.9;
+}
+
 .footer{
     text-align:center;
     color:gray;
@@ -127,32 +134,63 @@ button{
 <div class="container">
 
 <div class="header">
-    <h1>เครื่องคำนวณ<br>ไทยช่วยไทยพลัส</h1>
+    <h1>
+        เครื่องคำนวณ<br>
+        ไทยช่วยไทยพลัส
+    </h1>
+
     <p>คำนวณสิทธิ์ 60/40</p>
 </div>
 
-<input type="number" id="right" placeholder="สิทธิ์คงเหลือวันนี้">
-<div id="limitMsg" class="limit">สิทธิ์สูงสุดต่อวัน 200 บาท</div>
+<input
+type="number"
+id="right"
+placeholder="สิทธิ์คงเหลือวันนี้">
 
-<input type="number" id="wallet" placeholder="เงินใน G-Wallet">
+<div
+id="limitMsg"
+class="limit">
+สิทธิ์สูงสุดต่อวัน 200 บาท
+</div>
 
-<input type="number" id="price" placeholder="ราคาสินค้า">
+<input
+type="number"
+id="wallet"
+placeholder="เงินใน G-Wallet">
+
+<input
+type="number"
+id="price"
+placeholder="ราคาสินค้า">
 
 <div class="card blue">
-    <div class="max-title">ซื้อสินค้าได้สูงสุด</div>
-    <div class="max-value" id="maxPurchase">0 บาท</div>
+    <div class="max-title">
+        ซื้อสินค้าได้สูงสุด
+    </div>
+
+    <div
+    class="max-value"
+    id="maxPurchase">
+    0 บาท
+    </div>
 </div>
 
 <div class="card green">
-    <h2 id="govPay">รัฐช่วยจ่าย : 0 บาท</h2>
+    <h2 id="govPay">
+        รัฐช่วยจ่าย : 0 บาท
+    </h2>
 </div>
 
 <div class="card orange">
-    <h2 id="customerPay">ลูกค้าจ่ายเอง : 0 บาท</h2>
+    <h2 id="customerPay">
+        ลูกค้าจ่ายเอง : 0 บาท
+    </h2>
 </div>
 
-<div id="status" class="result-green">
-กรุณากรอกค่าในช่อง
+<div
+id="status"
+class="result-green">
+กรุณากรอกข้อมูล
 </div>
 
 <button onclick="clearAll()">
@@ -160,7 +198,8 @@ button{
 </button>
 
 <div class="footer">
-เครื่องคำนวณไทยช่วยไทยพลัส v1.0.1<br>
+เครื่องคำนวณไทยช่วยไทยพลัส v1.0.2
+<br>
 Created by คุณป๊อปคอร์น
 </div>
 
@@ -168,74 +207,149 @@ Created by คุณป๊อปคอร์น
 
 <script>
 
-const rightInput = document.getElementById("right");
-const walletInput = document.getElementById("wallet");
-const priceInput = document.getElementById("price");
+const rightInput =
+document.getElementById("right");
 
-rightInput.addEventListener("input", calculate);
-walletInput.addEventListener("input", calculate);
-priceInput.addEventListener("input", calculate);
+const walletInput =
+document.getElementById("wallet");
+
+const priceInput =
+document.getElementById("price");
+
+rightInput.addEventListener("input",calculate);
+walletInput.addEventListener("input",calculate);
+priceInput.addEventListener("input",calculate);
 
 function calculate(){
 
-let right = parseFloat(rightInput.value) || 0;
-let wallet = parseFloat(walletInput.value) || 0;
-let price = parseFloat(priceInput.value) || 0;
+let right =
+parseFloat(rightInput.value) || 0;
 
-const limitMsg = document.getElementById("limitMsg");
+let wallet =
+parseFloat(walletInput.value) || 0;
+
+let price =
+parseFloat(priceInput.value) || 0;
+
+const limitMsg =
+document.getElementById("limitMsg");
+
+const status =
+document.getElementById("status");
 
 if(right > 200){
-    limitMsg.innerHTML = "กรอกสิทธิ์สูงสุดต่อวันได้ไม่เกิน 200 บาท";
-    limitMsg.style.color = "red";
+
+    limitMsg.innerHTML =
+    "กรอกสิทธิ์สูงสุดต่อวันได้ไม่เกิน 200 บาท";
+
+    limitMsg.style.color =
+    "red";
+
+    document.getElementById("maxPurchase")
+    .innerHTML =
+    "- บาท";
+
+    document.getElementById("govPay")
+    .innerHTML =
+    "รัฐช่วยจ่าย : - บาท";
+
+    document.getElementById("customerPay")
+    .innerHTML =
+    "ลูกค้าจ่ายเอง : - บาท";
+
+    status.innerHTML =
+    "กรุณาแก้ไขข้อมูลก่อนคำนวณ";
+
+    status.className =
+    "result-red";
+
     return;
 }
-else{
-    limitMsg.innerHTML = "สิทธิ์สูงสุดต่อวัน 200 บาท";
-}
 
-let govPay = Math.min(price * 0.6, right);
-let customerPay = price - govPay;
+limitMsg.innerHTML =
+"สิทธิ์สูงสุดต่อวัน 200 บาท";
 
-let govDisplay = Math.round(govPay);
-let customerDisplay = Math.round(customerPay);
+limitMsg.style.color =
+"gray";
 
-let topup = Math.max(customerDisplay - wallet,0);
+let govPay =
+Math.min(price * 0.6,right);
 
-let maxPurchase = Math.floor(right / 0.6);
+let customerPay =
+price - govPay;
 
-document.getElementById("maxPurchase").innerHTML =
+let govDisplay =
+Math.round(govPay);
+
+let customerDisplay =
+Math.round(customerPay);
+
+let maxPurchase =
+Math.round(right / 0.6);
+
+let topup =
+Math.max(
+customerDisplay - wallet,
+0
+);
+
+topup =
+Math.round(topup);
+
+document.getElementById("maxPurchase")
+.innerHTML =
 maxPurchase + " บาท";
 
-document.getElementById("govPay").innerHTML =
-"รัฐช่วยจ่าย : " + govDisplay + " บาท";
+document.getElementById("govPay")
+.innerHTML =
+"รัฐช่วยจ่าย : "
++ govDisplay +
+" บาท";
 
-document.getElementById("customerPay").innerHTML =
-"ลูกค้าจ่ายเอง : " + customerDisplay + " บาท";
-
-const status = document.getElementById("status");
+document.getElementById("customerPay")
+.innerHTML =
+"ลูกค้าจ่ายเอง : "
++ customerDisplay +
+" บาท";
 
 if(
 rightInput.value === "" ||
 walletInput.value === "" ||
 priceInput.value === ""
 ){
-    status.innerHTML = "กรุณากรอกค่าในช่อง";
-    status.className = "result-green";
+
+    status.innerHTML =
+    "กรุณากรอกข้อมูล";
+
+    status.className =
+    "result-green";
+
 }
 else if(topup > 0){
-    status.innerHTML =
-    "ต้องเติมเพิ่ม " + topup + " บาท";
 
-    status.className = "result-red";
+    status.innerHTML =
+    "ต้องเติมเพิ่ม "
+    + topup +
+    " บาท";
+
+    status.className =
+    "result-red";
+
 }
 else{
-    status.innerHTML = "ไม่ต้องเติมเพิ่ม";
-    status.className = "result-green";
+
+    status.innerHTML =
+    "ไม่ต้องเติมเพิ่ม";
+
+    status.className =
+    "result-green";
+
 }
 
 }
 
 function clearAll(){
+
     rightInput.value = "";
     walletInput.value = "";
     priceInput.value = "";
